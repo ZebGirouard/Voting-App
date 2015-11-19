@@ -3,13 +3,13 @@
 <html>
 
 	<head>
-		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
+		<title>Voting App Powered by Clementine.js</title>
 		
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 	</head>
 
 	<header>
-		<p>Welcome, <span id="display-name"></span>!</p>
+		<p>Welcome, <span id="display-name"></span> to Votastic 3000!</p>
 		<a class="menu" href="/profile">Profile</a>
 		<p>|</p>
 		<a class="menu" href="/logout">Logout</a>
@@ -17,17 +17,17 @@
 
 	<body>
 		<div class="container">
-			<img src="/public/img/clementine_150.png" />
+			<img src="/public/img/clipart-vote.jpg" />
 			<br />
-			<p class="clementine-text">Clementine.js</p>
+			<p class="clementine-text">Create polls and chart results.</p>
 		</div>
 	
 		<div class="container">
-			<p>You have clicked the button <span id="click-nbr"></span> times.</p>
+			<p>You have created <span id="click-nbr"></span> polls so far.</p>
 			<br />
 			<div class="btn-container">
-				<button type="submit" class="btn btn-add">CLICK ME!</button>
-				<button class="btn btn-delete">RESET</button>
+				<button type="submit" class="btn btn-add">New Poll</button>
+				<button class="btn btn-delete">View Results</button>
 			</div>
 		</div>
 		
