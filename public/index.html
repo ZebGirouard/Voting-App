@@ -4,7 +4,7 @@
 
 	<head>
 		<title>Voting App Powered by Clementine.js</title>
-		
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 	</head>
 
@@ -23,13 +23,34 @@
 		</div>
 	
 		<div class="container" ng-controller='clickController'>
-			<p>You have created {{clicks}} polls so far.</p>
+			<p>You have created {{surveyTotal}} polls so far.</p>
 			<br />
 			<div class="btn-container">
-				<button type="submit" class="btn btn-add" ng-click='addClick()'>New Poll</button>
+				<button type="submit" class="btn btn-add" ng-click='addSurvey()'>New Poll</button>
 				<button class="btn btn-delete" ng-click='resetClicks()'>View Results</button>
 			</div>
+			<div class="wrapper">
+    			<div ng-show="newSurveyShow" class='text-center'>
+    				<h1>New Poll</h1>
+    				<form name='newPoll' ng-submit='submitPoll()'>
+    					<div class='form-group text-centered'>
+    						<label for='surveyName'>Name your poll.</label>
+    						<input id='surveyName' name='surveyName' ng-model='survey.name' placeholder="Who is the coolest Power Ranger?" class="form-control" required>    						
+    					</div>
+    					<div class='form-group text-centered'>
+	    					<label>Survey Options</label>
+	    					<div ng-repeat='option in surveyOptions'>
+	    						<input ng-model='option.text' class="form-control" placeholder="{{option.placeholder}}"required>	    						
+	    					</div>
+	    				</div>
+	    				<button type='button' class="btn btn-default" ng-click='addOption()'>Add Option</button>
+	    				<button type="submit" class="btn btn-success">Submit</button>
+    				</form>
+    			</div>
+    			<h2 ng-hide="newSurveyShow">All my surveys!</h2>
+  			</div>
 		</div>
+
 		
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
 		<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js'></script>

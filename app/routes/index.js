@@ -54,4 +54,8 @@ module.exports = function (app, passport) {
 		.get(isLoggedIn, clickHandler.getClicks)
 		.post(isLoggedIn, clickHandler.addClick)
 		.delete(isLoggedIn, clickHandler.resetClicks);
+	
+	app.route('/api/:id/surveys')
+		.get(isLoggedIn, clickHandler.getSurveys)
+		.post(isLoggedIn, clickHandler.addSurvey);
 };
