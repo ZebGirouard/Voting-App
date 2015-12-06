@@ -23,11 +23,11 @@
 		</div>
 	
 		<div class="container" ng-controller='clickController'>
-			<p>You have created {{surveyTotal}} polls so far.</p>
+			<p>You have created {{surveyTotal}} poll(s) so far.</p>
 			<br />
 			<div class="btn-container">
-				<button type="submit" class="btn btn-add" ng-click='addSurvey()'>New Poll</button>
-				<button class="btn btn-delete" ng-click='resetClicks()'>View Results</button>
+				<button type="submit" class="btn btn-add" ng-click='viewNewSurvey()'>New Poll</button>
+				<button class="btn btn-delete" ng-click='viewResults()'>View Results</button>
 			</div>
 			<div class="wrapper">
     			<div ng-show="newSurveyShow" class='text-center'>
@@ -39,7 +39,7 @@
     					</div>
     					<div class='form-group text-centered'>
 	    					<label>Survey Options</label>
-	    					<div ng-repeat='option in surveyOptions'>
+	    					<div ng-repeat='option in survey.surveyOptions'>
 	    						<input ng-model='option.text' class="form-control" placeholder="{{option.placeholder}}"required>	    						
 	    					</div>
 	    				</div>
@@ -47,7 +47,19 @@
 	    				<button type="submit" class="btn btn-success">Submit</button>
     				</form>
     			</div>
-    			<h2 ng-hide="newSurveyShow">All my surveys!</h2>
+    			<div ng-show="allSurveysShow">
+    				<h2>All Survey Results:</h2>
+    				<div ng-repeat="poll in allSurveys">Survey Name: {{poll.surveyName}}
+	    				<ul>
+	    					<li ng-repeat="option in poll.surveyOptions">{{option.option}}
+		    					<ul>
+		    						<li>{{option.votes}}</li>
+		    					</ul>
+	    					</li>
+	    				</ul>
+	    				<button type='button' class="btn btn-default" ng-click='deleteSurvey(poll.surveyName)'>Delete Poll</button>
+	    			</div>
+    			</div>
   			</div>
 		</div>
 

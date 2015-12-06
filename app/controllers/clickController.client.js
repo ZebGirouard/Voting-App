@@ -1,49 +1,60 @@
 'use strict';
 
 (function() {
-    angular
-        .module('clementineApp', ['ngResource', 'ngRoute'])
-        .controller('clickController', ['$scope', '$resource', '$route', '$routeParams', function ($scope, $resource, $route, $routeParams) {
-            //$scope.clicks = $route.current.params.id;
-            var Click = $resource('/api/{id}/surveys');
+    var app = angular.module('clementineApp', ['ngResource', 'ngRoute']);
+        app.controller('clickController', ['$scope', '$resource', '$route', '$routeParams', function ($scope, $resource, $route, $routeParams) {
+            var Surveys = $resource('/api/{id}/surveys');
+            var SurveyRemove = $resource('/api/{id}/surveyRemove');
             //$scope.surveyTotal = 'yo mama';
             $scope.newSurveyShow = false;
+            $scope.allSurveysShow = true;
+            $scope.survey = {};
             $scope.getSurveys = function() {
                 //$scope.surveyTotal = 'yo mama';
-                Click.get(function (results) {
+                Surveys.query(function (results) {
                     $scope.surveyTotal = results.length;
+                    $scope.allSurveys = results;
                 });
             };
             
             $scope.getSurveys();
             
-            $scope.addSurvey = function () {
+            $scope.viewNewSurvey = function () {
               $scope.newSurveyShow = true;
-              Click.save(function () {
-                $scope.getSurveys();
-              });
-              $scope.$apply();
+              $scope.allSurveysShow = false;
             };
             
-            $scope.resetClicks = function () {
-                $scope.newSurveyShow = false;
-                Click.remove(function() {
-                  $scope.getSurveys();
+            $scope.deleteSurvey = function (surveyName) {
+                var surveyToDelete = {name: surveyName};
+                console.log("Deleting " + surveyToDelete);
+                SurveyRemove.save(surveyToDelete, function() {
+                    $scope.getSurveys();
                 });
-                $scope.$apply();
+            };
+            
+            $scope.viewResults = function () {
+              $scope.newSurveyShow = false;
+              $scope.allSurveysShow = true;                
             };
             
             $scope.addOption = function () {
-                $scope.surveyOptions.push({placeholder: 'New Option'});
+                $scope.survey.surveyOptions.push({placeholder: 'New Option'});
             };
             
-            $scope.surveyOptions = [{
-                placeholder: 'Billy'},
-            {
-                placeholder: 'Jason'}];
+            $scope.survey.surveyOptions = [
+                {placeholder: 'Billy'},
+                {placeholder: 'Jason'}
+            ];
             
             $scope.submitPoll = function () {
-                alert($scope.survey.name + " submitted with options " + $scope.surveyOptions[0].text);
+                var newSurvey = $scope.survey;
+                console.log(newSurvey);
+                Surveys.save(newSurvey, function () {
+                    $scope.getSurveys();
+                });
+                //$scope.$apply();
+                $scope.newSurveyShow = false;
+                alert($scope.survey.name + " submitted with options " + $scope.survey.surveyOptions[0].text);
             };
             
         }]);
