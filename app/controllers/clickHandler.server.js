@@ -3,6 +3,7 @@
 var Users = require('../models/users.js');
 
 function ClickHandler () {
+	/*
 	this.getClicks = function (req, res) {
 		Users
 			.findOne({ 'github.id': req.user.github.id }, { '_id': false })
@@ -34,7 +35,7 @@ function ClickHandler () {
 				}
 			);
 	};
-	
+	*/
 	this.addSurvey = function (req, res) {
 		var surveyName = req.body.name;
 		var surveyOptions = req.body.surveyOptions;
@@ -57,6 +58,26 @@ function ClickHandler () {
 			);		
 	};
 	
+	this.addVote = function (req, res) {
+		var choice = req.body.text;
+		console.log(choice);
+		var userId = req.params.id;
+		console.log(userId);
+		var surveyName = req.params.surveyName;
+		console.log(surveyName);
+		/*
+		Users
+			.findOneAndUpdate({ 'github.id': userId }, { $inc: { 'surveys': surveyObject } })
+			.exec(function (err, result) {
+					if (err) { 
+						throw err; 
+					}
+					res.json(result);
+				}
+			);		
+			*/
+	};
+	
 	this.deleteSurvey = function (req, res) {
 		var surveyName = req.body.name;
 		console.log(surveyName);
@@ -71,6 +92,11 @@ function ClickHandler () {
 			);			
 	}
 	
+	this.getOneSurvey = function (req, res) {
+		console.log('Getting a survey');
+		res.json({test: 'test'});	
+	};
+	
 	this.getSurveys = function (req, res) {
 		Users
 			.findOne({ 'github.id': req.user.github.id }, { '_id': false })
@@ -78,8 +104,6 @@ function ClickHandler () {
 				if (err) { 
 					throw err;
 				}
-				console.log('survey results...');
-				console.log(result.surveys);
 				res.json(result.surveys);
 			});
 	};

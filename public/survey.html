@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html ng-app='clementineApp'>
+
+	<head>
+		<title>Voting App Powered by Clementine.js</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+	</head>
+
+	<header>
+		<p>Welcome, <span id="display-name"></span> to Votastic 3000!</p>
+		<a class="menu" href="/profile">Profile</a>
+		<p>|</p>
+		<a class="menu" href="/logout">Logout</a>
+	</header>
+
+	<body>
+		<h1>Cast your vote...</h1>
+		<div class="container" ng-controller='surveyController'>
+		    <div class="wrapper">
+    		    <div ng-repeat="poll in allSurveys | filter: { surveyName:surveyToShow}: true">
+    		    	<h2>{{poll.surveyName}}</h2>
+    		    	<form name='pollVote' ng-submit='submitVote()'>
+    		    		<div ng-repeat="option in poll.surveyOptions">
+	   			    		<input type="radio" name="choice.text" ng-model='choice.text' value="{{option.option}}">{{option.option}}
+	   			    	</div>
+	   			    	<button type="submit" class="btn btn-success">Vote</button>
+	   			    </form>
+				    
+			    </div>
+			</div>
+		</div>
+		<script type="text/javascript" src="/common/ajax-functions.js"></script>
+		<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js'></script>
+        <script type="text/javascript" src="https://code.angularjs.org/1.4.8/angular-resource.min.js"></script>
+        <script type="text/javascript" src="https://code.angularjs.org/1.4.8/angular-route.min.js"></script>
+		<script type="text/javascript" src="/controllers/clickController.client.js"></script>
+		<script type="text/javascript" src="/controllers/userController.client.js"></script>
+	</body>
+</html>

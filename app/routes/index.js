@@ -36,6 +36,12 @@ module.exports = function (app, passport) {
 			res.sendFile(path + '/public/profile.html');
 		});
 
+	app.route('/:id/survey/:surveyName')
+		.get(isLoggedIn, function (req, res) {
+			res.sendFile(path + '/public/survey.html');
+		})
+		.post(isLoggedIn, clickHandler.addVote);
+		
 	app.route('/api/:id')
 		.get(isLoggedIn, function (req, res) {
 			res.json(req.user.github);
