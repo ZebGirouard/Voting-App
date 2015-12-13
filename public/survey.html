@@ -22,8 +22,8 @@
     		    <div ng-repeat="poll in allSurveys | filter: { surveyName:surveyToShow}: true">
     		    	<h2>{{poll.surveyName}}</h2>
     		    	<form name='pollVote' ng-submit='submitVote()'>
-    		    		<div ng-repeat="option in poll.surveyOptions">
-	   			    		<input type="radio" name="choice.text" ng-model='choice.text' value="{{option.option}}">{{option.option}}
+    		    		<div ng-repeat="(option, votes) in poll.surveyOptions">
+	   			    		<input type="radio" name="choice.text" ng-model="choice.text" value="{{option}}">{{option}}
 	   			    	</div>
 	   			    	<button type="submit" class="btn btn-success">Vote</button>
 	   			    </form>

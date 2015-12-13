@@ -9,11 +9,12 @@
             $scope.allSurveysShow = true;
             $scope.survey = {};
             $scope.choice = {};
-            var allPath = $location.absUrl().split("/")
-            $scope.surveyToShow = allPath[allPath.length - 1]
-            $scope.currentId = allPath[allPath.length - 3]
+            var allPath = $location.absUrl().split("/");
+            $scope.surveyPath = allPath[allPath.length - 1];
+            $scope.surveyToShow = decodeURIComponent($scope.surveyPath);
+            $scope.userToShow = allPath[allPath.length - 3];
             console.log($scope.surveyToShow);
-            var SurveyVote = $resource('/'+$scope.currentId+'/survey/'+$scope.surveyToShow);
+            var SurveyVote = $resource('/'+$scope.userToShow+'/survey/'+$scope.surveyPath);
             
             $scope.getSurveys = function() {
                 Surveys.query(function (results) {
@@ -67,16 +68,16 @@
                 });
                 $scope.newSurveyShow = false;
                 $scope.surveyNamePath = encodeURIComponent($scope.survey.name);
-                $scope.currentUser = "userIDHere";
+                var links = document.querySelector('#surveyLink') || null;
+                if (links !== null) {
+                    links.setAttribute("href", links.href.replace('pollNameHere',$scope.surveyNamePath));
+                }
                 $scope.viewLink();
             };
             
             $scope.submitVote = function () {
                 var choice = $scope.choice;
                 console.log(choice);
-                /*var id = $routeParams.id;
-                console.log(id);
-                */
                 SurveyVote.save(choice, function () {
                     console.log("You voted, dude!");
                 });

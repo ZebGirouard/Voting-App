@@ -50,18 +50,18 @@
     			<div ng-show="allSurveysShow">
 	    		    <div ng-repeat="poll in allSurveys">Survey Name: {{poll.surveyName}}
 		   			    <ul>
-	 					    <li ng-repeat="option in poll.surveyOptions">{{option.option}}
-							    <ul>
-			   					    <li>{{option.votes}}</li>
-		 					    </ul>
-						    </li>
+	 					    <li ng-repeat="(option, votes) in poll.surveyOptions">{{option}}
+						    	<ul>
+			   				    	<li>{{votes}}</li>
+		 				    	</ul>
+					    	</li>
 					    </ul>
 					    <button type='button' class="btn btn-default" ng-click='deleteSurvey(poll.surveyName)'>Delete</button>
 				    </div>
 				</div>
 				<div ng-show="linkShow">
 	    		    <h2>Success!</h2>
-		   			    <h3>Your poll has been posted to <a href="http://clementine-projects-zebgirouard.c9users.io/{{currentUser}}/survey/{{surveyNamePath}}">http://clementine-projects-zebgirouard.c9users.io/userIDHere/survey/{{surveyNamePath}}</a></h3>
+		   			    <h3>Your poll has been posted to <a href="http://clementine-projects-zebgirouard.c9users.io/userIDHere/survey/pollNameHere" id="surveyLink">http://clementine-projects-zebgirouard.c9users.io/<span id='profile-id'></span>/survey/{{surveyNamePath}}</a></h3>
 				    </div>
 				</div>
   			</div>
