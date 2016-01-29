@@ -19,7 +19,7 @@
     "boilerplate"
   ],
   "scripts": {
-    "prestart": "mongod --smallfiles &",
+    "prestart": "/usr/bin/mongod --smallfiles &",
     "start": "node server.js"
   },
   "author": "Blake Johnston",
