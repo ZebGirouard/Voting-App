@@ -12,7 +12,8 @@ var app = express();
 require('dotenv').load();
 require('./app/config/passport')(passport);
 
-var mongoURI = process.env.MONGO_LAB_URI || process.env.MONGO_URI;
+console.log(process.env);
+var mongoURI = process.env.MONGOLAB_URI || process.env.MONGO_URI;
 
 mongoose.connect(mongoURI);
 
